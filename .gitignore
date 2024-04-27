@@ -1,3 +1,6 @@
+# JavaScript (it's generated from TS, no need to store it VCS)
+*.js
+
 # Logs
 logs
 *.log
