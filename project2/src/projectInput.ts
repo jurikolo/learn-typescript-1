@@ -1,5 +1,6 @@
 import { IUserInputValidation } from './interfaces';
 import { Validator } from './validator';
+import { ProjectState } from './projectState';
 
 // autobind decorator
 // underscores are used to inform TS the author is aware properties are never used
@@ -93,6 +94,8 @@ export class ProjectInput {
         const userInput = this.gatherUserInput();
         if (Array.isArray(userInput)) {
             const [title, description, people] = userInput;
+            const projectState = ProjectState.getInstance();
+            projectState.addProject(title, description, people);
             console.log(title, description, people);
         }
         this.clearUserInput();
