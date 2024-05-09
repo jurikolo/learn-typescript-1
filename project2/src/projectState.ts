@@ -1,14 +1,13 @@
-import { Listener } from './listener.type';
 import { Project } from './project';
 import { ProjectStatus } from './projectStatus.enum';
+import { State } from './state';
 
-export class ProjectState {
-    private listeners: Listener[] = [];
+export class ProjectState extends State<Project> {
     private projects: Project[] = [];
     private static instance: ProjectState;
 
     private constructor() {
-
+        super();
     }
 
     static getInstance() {
@@ -25,9 +24,5 @@ export class ProjectState {
         for (const listenerFunction of this.listeners) {
             listenerFunction(this.projects.slice());
         }
-    }
-
-    public addListener(listenerFunction: Listener) {
-        this.listeners.push(listenerFunction);
     }
 }

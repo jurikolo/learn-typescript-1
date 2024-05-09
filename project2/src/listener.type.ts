@@ -1,3 +1,1 @@
-import { Project } from './project';
-
-export type Listener = (items: Project[]) => void;
+export type Listener<T> = (items: T[]) => void;

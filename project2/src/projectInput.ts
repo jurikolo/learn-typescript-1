@@ -1,6 +1,7 @@
 import { IUserInputValidation } from './interfaces';
 import { Validator } from './validator';
 import { ProjectState } from './projectState';
+import { Component } from './component';
 
 // autobind decorator
 // underscores are used to inform TS the author is aware properties are never used
@@ -16,35 +17,24 @@ function autobind(_: any, _2: string, descriptor: PropertyDescriptor) {
     return adjDescriptor;
 }
 
-export class ProjectInput {
-    private templateElement: HTMLTemplateElement;
-    private hostElement: HTMLDivElement;
-    private element: HTMLFormElement;
+export class ProjectInput extends Component<HTMLDivElement, HTMLFormElement> {
     private titleInputElement: HTMLInputElement;
     private descriptionInputElement: HTMLInputElement;
     private peopleInputElement: HTMLInputElement;
 
     constructor() {
-        // id comes from index.html file
-        this.templateElement = document.getElementById('project-input')! as HTMLTemplateElement;
-        this.hostElement = document.getElementById('app')! as HTMLDivElement;
-
-        const importedNode = document.importNode(this.templateElement.content, true);
-        this.element = importedNode.firstElementChild as HTMLFormElement;
-
-        // id comes from app.css file
-        this.element.id = 'user-input';
+        super('project-input', 'app', true, 'user-input');
 
         this.titleInputElement = this.element.querySelector('#title') as HTMLInputElement;
         this.descriptionInputElement = this.element.querySelector('#description') as HTMLInputElement;
         this.peopleInputElement = this.element.querySelector('#people') as HTMLInputElement;
+
+        this.configure();
     }
 
-    private attach() {
-        this.hostElement.insertAdjacentElement('afterbegin', this.element);
-    }
+    renderContent(): void { }
 
-    private configure() {
+    configure() {
         // this solution is replaced by @autobind decorator on submitHandler method
         //this.element.addEventListener('submit', this.submitHandler.bind(this));
 
@@ -101,8 +91,5 @@ export class ProjectInput {
         this.clearUserInput();
     }
 
-    public exec() {
-        this.configure();
-        this.attach();
-    }
+    public exec() { }
 }
