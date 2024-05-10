@@ -1,5 +1,6 @@
 import { Component } from './component';
 import { Project } from './project';
+import { ProjectItem } from './projectItem';
 import { ProjectState } from './projectState';
 import { ProjectStatus } from './projectStatus.enum';
 
@@ -38,9 +39,7 @@ export class ProjectList extends Component<HTMLDivElement, HTMLElement> {
         const listElement = document.getElementById(`${this.type}-projects-list`)! as HTMLUListElement;
         listElement.innerHTML = '';
         for (const projectItem of this.assignedProjects) {
-            const listItem = document.createElement('li');
-            listItem.textContent = projectItem.title;
-            listElement.appendChild(listItem);
+            new ProjectItem(this.element.querySelector('ul')!.id, projectItem);
         }
     }
 }
