@@ -2,20 +2,7 @@ import { IUserInputValidation } from './interfaces';
 import { Validator } from './validator';
 import { ProjectState } from './projectState';
 import { Component } from './component';
-
-// autobind decorator
-// underscores are used to inform TS the author is aware properties are never used
-function autobind(_: any, _2: string, descriptor: PropertyDescriptor) {
-    const originalMethod = descriptor.value;
-    const adjDescriptor: PropertyDescriptor = {
-        configurable: true,
-        get() {
-            const boundFn = originalMethod.bind(this);
-            return boundFn;
-        }
-    };
-    return adjDescriptor;
-}
+import { autobind } from './autobind.decorator';
 
 export class ProjectInput extends Component<HTMLDivElement, HTMLFormElement> {
     private titleInputElement: HTMLInputElement;

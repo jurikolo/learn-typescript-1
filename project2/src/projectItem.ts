@@ -1,7 +1,9 @@
+import { autobind } from './autobind.decorator';
 import { Component } from './component';
+import { Draggable } from './interfaces';
 import { Project } from './project';
 
-export class ProjectItem extends Component<HTMLUListElement, HTMLLIElement> {
+export class ProjectItem extends Component<HTMLUListElement, HTMLLIElement> implements Draggable {
     private project: Project;
 
     private get persons() {
@@ -19,7 +21,17 @@ export class ProjectItem extends Component<HTMLUListElement, HTMLLIElement> {
         this.renderContent();
     }
 
-    configure(): void { }
+    @autobind
+    dragStartHandler(event: DragEvent): void {
+        console.log(event);
+    }
+
+    dragEndHandler(_: DragEvent): void { }
+
+    configure(): void {
+        this.element.addEventListener('dragstart', this.dragStartHandler);
+        this.element.addEventListener('dragend', this.dragEndHandler);
+    }
 
     renderContent(): void {
         this.element.querySelector('h2')!.textContent = this.project.title;
