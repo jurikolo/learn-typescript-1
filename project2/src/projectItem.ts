@@ -23,7 +23,8 @@ export class ProjectItem extends Component<HTMLUListElement, HTMLLIElement> impl
 
     @autobind
     dragStartHandler(event: DragEvent): void {
-        console.log(event);
+        event.dataTransfer!.setData('text/plain', this.project.id);
+        event.dataTransfer!.effectAllowed = 'move';
     }
 
     dragEndHandler(_: DragEvent): void { }

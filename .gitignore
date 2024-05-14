@@ -1,6 +1,9 @@
 # JavaScript (it's generated from TS, no need to store it VCS)
 *.js
 
+# Allow webpack config
+!webpack.config.js
+
 # Logs
 logs
 *.log
